@@ -16,6 +16,9 @@
     const userController = require('../controllers/user-controller')
     app.use('/user/v1', userController)
     
+    const postController = require('../controllers/post-controller')    
+    app.use('/post/v1', postController)
+
     app.listen(process.env.SERVER_PORT, () => {
         console.log(`Servidor rodando em: ${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`)
 })
