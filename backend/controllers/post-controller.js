@@ -1,6 +1,10 @@
 const router = require('express').Router()
 const db = require('../src/db')
 const Post = require('../models/post')(db.sequelize, db.DataTypes)
+const Comment = require('../models/comment')(db.sequelize, db.DataTypes)
+
+Post.hasMany(Comment)
+Comment.belongsTo(Post)
 
 
 
@@ -23,6 +27,11 @@ router.post('/', async (req, res) => {
 
 router.put('/', async (req, res) => {
     const post = await Post.findByPk(req.body.id)
+
+    const { comentario } = req.body
+    if(comentario) {
+        post.createCommnet({ comentario })
+    }
 
     Object.entries(req.body).forEach(item => {
         const [key, value] = item
